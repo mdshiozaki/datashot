@@ -55,10 +55,9 @@ class puck_detector():
             cv2.rectangle(im,(x,y),(x+w,y+h),(0,255,0),2)
             cv2.circle(im, (x_cen, y_cen), 2, (0,255,0), 1)
 
-        #show image
-        # cv2.imshow("im", np.hstack([im, output]))
-        # cv2.imshow("imgray", gray_im)
         cv2.imshow("imgray", frame_threshed)
         cv2.imshow("im", im)
-        #cv2.imshow("im", gray_im)
-        cv2.waitKey(0)
+
+        #cv2.waitKey(0)
+
+        return x_cen, y_cen

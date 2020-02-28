@@ -1,6 +1,7 @@
 # using https://problemsolvingwithpython.com/11-Python-and-External-Hardware/11.04-Reading-a-Sensor-with-Python/
 
 from puck_detector import puck_detector
+from location_comparison import compare
 
 import numpy as np
 import cv2
@@ -9,8 +10,13 @@ import time
 import imutils
 from imutils.video import VideoStream
 
+#
+
 pd = puck_detector()
 (H, W) = (None, None)
+
+x_target = 250 # placeholder for taking in from csv file
+y_target = 250 #placeholder for taking in from csv file
 
 # start video stream
 print("[INFO] starting video stream...")
@@ -22,7 +28,7 @@ time.sleep(2.0)
 ser = serial.Serial('/dev/cu.usbmodem14201', 9600) #mac port
 
 hit_detected = False
-data = []
+frame_queue = [] # queue of frames
 
 while hit_detected == False:
     print("reading....")
@@ -32,7 +38,15 @@ while hit_detected == False:
     if string == "Hit":
         # if hit, take frame and run detector
         frame = vs.read()
-        frame = imutils.resize(frame, width=400)
+        #add frame to queue
+        frame_queue.append(frame)
 
-        pd.detect(frame)
+        if len(frame_queue) == 10:
+            # queue size max 10, ejects 10th oldest frame
+            frame_queue.pop(0)
+
+        x_shot, y_shot = pd.detect(frame_queue[0])
+        diff = compare(x_shot, y_shot, x_target, y_target)
+        print(diff)
+
         hit_detected = True
