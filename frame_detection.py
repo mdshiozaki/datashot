@@ -14,8 +14,8 @@ def shot_detect(vs, ser, num_targets, target_coords):
 
     # obtain new target coordinates from csv
     index = randint(1, num_targets)
-    x_target = target_coords['x_net'][index]
-    y_target = target_coords['y_net'][index]
+    x_target = target_coords['Net_X'][index]
+    y_target = target_coords['Net_Y'][index]
 
     hit_detected = False
     # frame_queue = [] # queue of frames
