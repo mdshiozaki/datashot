@@ -3,7 +3,6 @@ import math
 def compare(x_shot, y_shot, x_target, y_target):
 
     #ratio: 3:2
-
     x_diff = x_target - x_shot
     y_diff = y_target - y_shot
 
