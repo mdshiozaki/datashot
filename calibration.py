@@ -6,12 +6,8 @@ import time
 from imutils.video import VideoStream
 
 
-def calibrate():
-    print("[INFO] starting video stream...")
-    vs = VideoStream(src=0).start()
-    time.sleep(2)
-
-    im = vs.read()
+def calibrate(videostream):
+    im = videostream.read()
 
     PINK_MIN = np.array([160, 70, 50],np.uint8)
     PINK_MAX = np.array([180, 255, 255],np.uint8)
