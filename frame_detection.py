@@ -1,15 +1,15 @@
 # using https://problemsolvingwithpython.com/11-Python-and-External-Hardware/11.04-Reading-a-Sensor-with-Python/
 
 from puck_detector import detect
+from location_comparison import compare
 
 import numpy as np
-import pandas as pd
 import cv2
 import time
 import imutils
 from imutils.video import VideoStream
 
-def shot_detect(vs, ser, num_targets, target_coords):
+def shot_detect(vs, ser, num_targets, target_coords, cm_per_pixel):
     (H, W) = (None, None)
 
     # obtain new target coordinates from csv
@@ -37,7 +37,7 @@ def shot_detect(vs, ser, num_targets, target_coords):
             #     frame_queue.pop(0)
 
             x_shot, y_shot = detect(frame)
-            diff = compare(x_shot, y_shot, x_target, y_target)
+            diff = compare(x_shot, y_shot, x_target, y_target, cm_per_pixel)
 
             hit_detected = True
 
