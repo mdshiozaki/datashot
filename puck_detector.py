@@ -10,10 +10,10 @@ import imutils
 def detect(self, img):
     im = img
 
-    ORANGE_MIN = np.array([4, 50, 50],np.uint8)
-    ORANGE_MAX = np.array([13, 255, 255],np.uint8)
+    ORANGE_MIN = np.array([4, 139, 130],np.uint8)
+    ORANGE_MAX = np.array([12, 255, 255],np.uint8)
 
-    hsv_img = cv2.cvtColor(im, cv2.COLOR_BGR2HSV)
+    hsv_img = cv2.cvtColor(im, cv2.CO LOR_BGR2HSV)
     frame_threshed = cv2.inRange(hsv_img, ORANGE_MIN, ORANGE_MAX)
 
     contours,hierarchy = cv2.findContours(frame_threshed, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)

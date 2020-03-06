@@ -9,7 +9,7 @@ import time
 import imutils
 from imutils.video import VideoStream
 
-def shot_detect(vs, ser, num_targets, target_coords, cm_per_pixel):
+def shot_detect(vs, ser, num_targets, target_coords, cm_per_pixel, x_zero, y_zero):
     (H, W) = (None, None)
 
     # obtain new target coordinates from csv
@@ -37,6 +37,8 @@ def shot_detect(vs, ser, num_targets, target_coords, cm_per_pixel):
             #     frame_queue.pop(0)
 
             x_shot, y_shot = detect(frame)
+            x_shot = x_shot - x_zero
+            y_shot = y_shot - x_zero
             diff = compare(x_shot, y_shot, x_target, y_target, cm_per_pixel)
 
             hit_detected = True

@@ -11,12 +11,12 @@ from imutils.video import VideoStream
 
 # import from other files
 from frame_detection import shot_detect
-# from calibration import calibrate
+from calibration import calibrate
 
 # initiate
 # set up the serial line
 # ser = serial.Serial('COM4', 9600) # windows port
-# ser = serial.Serial('/dev/cu.usbmodem14201', 9600) # mac port
+ser = serial .Serial('/dev/cu.usbmodem14201', 9600) # mac port
 # seed
 seed(1)
 results = []
@@ -27,7 +27,7 @@ time.sleep(2.0)
 print("[INFO] Ready")
 
 # calibrate the camera for pixel to cm ratio
-cm_per_pixel = calibrate(vs)
+cm_per_pixel, x_zero, y_zero = calibrate(vs)
 
 # get target coords
 target_coords = pd.read_csv("shot_data.csv")
@@ -40,8 +40,8 @@ while (True):
     cv2.imshow("frame", frame)
     cv2.waitKey(1)
 
-    print("Shot")
-    shot_result = shot_detect(vs, ser, num_targets, target_coords, cm_per_pixel)
+    print("Shoot")
+    shot_result = shot_detect(vs, ser, num_targets, target_coords, cm_per_pixel, x_zero, y_zero))
     results.append(shot_result)
     print(shot_result)
 
