@@ -30,13 +30,14 @@ def shot_detect(vs, ser, num_targets, target_coords, cm_per_pixel, x_zero, y_zer
             time.sleep(0.1)
             frame = vs.read()
             #add frame to queue
-            # frame_queue.append(frame)
+            frame_queue.append(frame)
 
-            # if len(frame_queue) == 10:
-            #     # queue size max 10, ejects 10th oldest frame
-            #     frame_queue.pop(0)
+            if len(frame_queue) == 2:
+                # queue size max 10, ejects 10th oldest frame
+                frame_queue.pop(0)
 
-            x_shot, y_shot = detect(frame)
+            # x_shot, y_shot = detect(frame)
+            x_shot, y_shot = detect(frame_queue[0])
             x_shot = x_shot - x_zero
             y_shot = y_shot - x_zero
             diff = compare(x_shot, y_shot, x_target, y_target, cm_per_pixel)

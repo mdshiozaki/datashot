@@ -7,8 +7,10 @@ import argparse
 import math
 import imutils
 
-def detect(self, img):
+def detect(img):
     im = img
+    x_cen = 0
+    y_cen = 0
 
     ORANGE_MIN = np.array([4, 139, 130],np.uint8)
     ORANGE_MAX = np.array([12, 255, 255],np.uint8)
