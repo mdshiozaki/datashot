@@ -67,6 +67,7 @@ def calibrate(videostream):
         print(x_dist_px)
         print(cm_per_pixel)
         cv2.imshow('Contours', im)
+        print("Press any key to continue")
 
         if cv2.waitKey(0) & 0xFF == ord('q'):
             cv2.destroyAllWindows()

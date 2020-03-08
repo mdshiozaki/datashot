@@ -15,35 +15,35 @@ from calibration import calibrate
 
 # initiate
 # set up the serial line
-# ser = serial.Serial('COM4', 9600) # windows port
-ser = serial .Serial('/dev/cu.usbmodem14201', 9600) # mac port
-# seed
+ser = serial.Serial('COM4', 9600) # windows port
+# ser = serial .Serial('/dev/cu.usbmodem14201', 9600) # mac port
+
+# seed random number
 seed(1)
-results = []
+results = [] # array to store all the results of the session
+
 # activate video
-print("[INFO] starting video stream...")
-vs = VideoStream(src=0).start() # src=1 for usb camera
+print("[INFO] Starting video stream...")
+vs = VideoStream(src=1).start() # src=1 for usb camera
 time.sleep(2.0)
-print("[INFO] Ready")
+print("[INFO] Video Ready")
 
 # calibrate the camera for pixel to cm ratio
 cm_per_pixel, x_zero, y_zero = calibrate(vs)
 
-# get target coords
+# get target coords from csv 
 target_coords = pd.read_csv("shot_data.csv")
 num_targets = sum(1 for line in target_coords)
-print("Take your shot")
 
 while (True):
 	# if the `q` key was pressed, break from the loop
     frame = vs.read()
-    cv2.imshow("frame", frame)
-    cv2.waitKey(1)
+    # cv2.imshow("frame", frame)
+    # cv2.waitKey(1)
 
-    print("Shoot")
-    shot_result = shot_detect(vs, ser, num_targets, target_coords, cm_per_pixel, x_zero, y_zero))
+    shot_result = shot_detect(vs, ser, num_targets, target_coords, cm_per_pixel, x_zero, y_zero)
     results.append(shot_result)
-    print(shot_result)
+    print("Distance from Target:", shot_result)
 
     if cv2.waitKey(1) & 0xFF == ord('q'):
         print("Quitting...")

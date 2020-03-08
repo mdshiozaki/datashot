@@ -2,6 +2,7 @@
 
 from puck_detector import detect
 from location_comparison import compare
+from random import randint
 
 import numpy as np
 import cv2
@@ -16,12 +17,13 @@ def shot_detect(vs, ser, num_targets, target_coords, cm_per_pixel, x_zero, y_zer
     index = randint(1, num_targets)
     x_target = target_coords['Net_X'][index]
     y_target = target_coords['Net_Y'][index]
+    print("Targets: ", x_target, y_target)
 
     hit_detected = False
-    # frame_queue = [] # queue of frames
+    frame_queue = [] # queue of frames
 
     while hit_detected == False:
-        print("reading....")
+        print("[INFO] Ready for Shot")
         b = ser.readline()
         string_n = b.decode()
         string = string_n.rstrip()

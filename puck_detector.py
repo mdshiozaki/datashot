@@ -15,7 +15,7 @@ def detect(img):
     ORANGE_MIN = np.array([4, 139, 130],np.uint8)
     ORANGE_MAX = np.array([12, 255, 255],np.uint8)
 
-    hsv_img = cv2.cvtColor(im, cv2.CO LOR_BGR2HSV)
+    hsv_img = cv2.cvtColor(im, cv2.COLOR_BGR2HSV)
     frame_threshed = cv2.inRange(hsv_img, ORANGE_MIN, ORANGE_MAX)
 
     contours,hierarchy = cv2.findContours(frame_threshed, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
@@ -31,13 +31,13 @@ def detect(img):
         # centroid of largest contour
         x_cen = int((x+x+w)/2)
         y_cen = int((y+y+h)/2)
-        print(x_cen, y_cen)
+        print("Puck Center: ", x_cen, y_cen)
 
         # draw the biggest contour (c) in green
         cv2.rectangle(im,(x,y),(x+w,y+h),(0,255,0),2)
         cv2.circle(im, (x_cen, y_cen), 2, (0,255,0), 1)
 
-    cv2.imshow("imgray", frame_threshed)
+    # cv2.imshow("imgray", frame_threshed)
     cv2.imshow("im", im)
 
     return x_cen, y_cen
