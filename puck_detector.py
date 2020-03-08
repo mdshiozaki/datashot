@@ -12,11 +12,13 @@ def detect(img):
     x_cen = 0
     y_cen = 0
 
-    ORANGE_MIN = np.array([4, 139, 130],np.uint8)
-    ORANGE_MAX = np.array([12, 255, 255],np.uint8)
+    # ORANGE_MIN = np.array([4, 139, 130],np.uint8)
+    # ORANGE_MAX = np.array([12, 255, 255],np.uint8)
+    COLOUR_MIN = np.array([50, 100, 110],np.uint8) # green puck
+    COLOUR_MAX = np.array([66, 255, 255],np.uint8) # green puck 
 
     hsv_img = cv2.cvtColor(im, cv2.COLOR_BGR2HSV)
-    frame_threshed = cv2.inRange(hsv_img, ORANGE_MIN, ORANGE_MAX)
+    frame_threshed = cv2.inRange(hsv_img, COLOUR_MIN, COLOUR_MAX)
 
     contours,hierarchy = cv2.findContours(frame_threshed, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
 
